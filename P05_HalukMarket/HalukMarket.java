@@ -30,6 +30,9 @@ public class HalukMarket {
 		 * 7. Eğer bitirmek istiyorsa ödemeyi kontrol edip para ustu hesaplayarak  programı bitirinzi.
 		 */
 
+        System.out.println();
+        System.out.println("hello");
+
 
     }
 }
