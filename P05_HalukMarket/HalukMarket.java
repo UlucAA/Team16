@@ -30,6 +30,12 @@ public class HalukMarket {
 		 * 7. Eğer bitirmek istiyorsa ödemeyi kontrol edip para ustu hesaplayarak  programı bitirinzi.
 		 */
 
+//        System.out.println();
+//        System.out.println("hello");
+//
+//        System.out.println("Satici ekrani icin Kullanici Adi = muhammed Sifre = 6161");
+//        System.out.println("Müsteri ekrani icin Kullanici Adi = yusuf Sifre = 5858");
+//        KullaniciGiris.Kullanici();
 
     }
 }
