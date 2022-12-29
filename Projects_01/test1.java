@@ -1,9 +1,6 @@
+/*
  package JavaProjects.Projects_01;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -18,7 +15,7 @@ import java.io.PrintStream;
      private ByteArrayInputStream testIn;
      private ByteArrayOutputStream testOut;
 
-     @Before
+    // @Before
      public void setUpOutput() {
          testOut = new ByteArrayOutputStream();
          System.setOut(new PrintStream(testOut));
@@ -396,4 +393,4 @@ import java.io.PrintStream;
      }
 
 
- }
+ }*/
