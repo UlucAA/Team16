@@ -16,7 +16,7 @@ public class HangiKahve {
     static String sut;
     static String seker;
 
-    public void startKahve() {
+    public boolean startKahve() {
         Kahve kahve1 = new Kahve("1", "Türk Kahvesi");
         Kahve kahve2 = new Kahve("2", "Filtre Kahve");
         Kahve kahve3 = new Kahve("3", "Espresso");
@@ -27,6 +27,7 @@ public class HangiKahve {
         kahve.add(kahve4);
 
         kahveSecim();
+        return true;
     }
 
     private void kahveSecim() {
