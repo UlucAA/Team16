@@ -1,10 +1,19 @@
 package JavaProjects.P10_aracKiralama;
 
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class MusteriVeArabaBilgisiGirisi extends AracTalebi {
+    public static final String kirmizi = "\u001B[31m";
+    public static final String yesil = "\u001B[32m";
+    public static final String sari = "\u001B[33m";
+    public static final String mavi = "\u001B[34m";
+    public static final String mor = "\u001B[35m";
+    public static final String fullKoyuSiyahSatirCizgi = "\u001B[40m";
 
     static List<AracTalebi> aracTalebiList = new ArrayList<>();
 
@@ -12,16 +21,16 @@ public class MusteriVeArabaBilgisiGirisi extends AracTalebi {
 
     static int toplamGun;
 
-    public static void aracTalep() {
+    public static void aracTalep() throws InterruptedException {
         System.out.println("Lutfen araci alacaginiz sehri giriniz:");
-        String sehir = scan.nextLine();
-        System.out.println("Lutfen teslim alacaginiz gunu giriniz: (Ornek: 12.04)");// ay ve gunu ayirmak mi yoksa string almak mi?
+        String sehir = scan.next();
+        System.out.println("Lutfen teslim alacaginiz gunu ve ayi giriniz:(Ornek: 02.12 ) (Ornek: 12.04)");
         String alisGunu = scan.next();
-        System.out.println("Lutfen teslim alacaginiz saati giriniz: (Ornek: 15.00)");
+        System.out.println("Lutfen teslim alacaginiz saati giriniz: Tr klavyesi ise (15,00) giriniz degilse (Ornek: 16.00) ");
         double alisSaati = scan.nextDouble();
-        System.out.println("Lutfen teslim edeceginiz gunu giriniz: (Ornek: 12.04)");
+        System.out.println("Lutfen teslim edeceginiz gunu ve ayi  giriniz: (Ornek: 03.12 )(Ornek: 13.04)");
         String teslimGunu = scan.next();
-        System.out.println("Lutfen teslim edeceginiz saati giriniz: (Ornek: 15.00)");
+        System.out.println("Lutfen teslim edeceginiz saati giriniz: Tr klavyesi ise (16,00) giriniz degilse (Ornek: 16.00)");
         double teslimSaati = scan.nextDouble();
 
         System.out.println("************************************");
@@ -29,13 +38,13 @@ public class MusteriVeArabaBilgisiGirisi extends AracTalebi {
         int intAGunu= Integer.parseInt(aGun);
         String aAy= alisGunu.substring(3);
         int intAAy = Integer.parseInt(aAy);
-        System.out.println("Integer alis tarihi: "+intAGunu+"."+intAAy);
+        System.out.println("Alis tarihi: "+intAGunu+"."+intAAy);
 
         String tGun=teslimGunu.substring(0,2); //12.04
         int intTGunu= Integer.parseInt(tGun);
         String tAy= teslimGunu.substring(3);
         int intTAy = Integer.parseInt(tAy);
-        System.out.println("Integer teslim tarihi: "+intTGunu+"."+intTAy);
+        System.out.println("Teslim tarihi: "+intTGunu+"."+intTAy);
 
         System.out.println("************************************");
         if (intAAy>intTAy) {
@@ -44,12 +53,17 @@ public class MusteriVeArabaBilgisiGirisi extends AracTalebi {
         }else if(intAGunu>intTGunu){
             System.out.println("Alis gunu Teslim gununden sonra olamaz");
             aracTalep();
-        }else{
-
         }
         toplamGun= (intTAy-intAAy)*30 + (intTGunu-intAGunu);
-        System.out.println("Odenecek toplam gun ayisi: "+toplamGun);
+        System.out.println("Odenecek toplam gun sayisi: "+toplamGun);
         System.out.println("************************************");
+        System.out.print(kirmizi+"Menuden Cikis isleminiz gerceklestirilmektedir  "+(char)9951);
+        for (int i=0;i<12;i++){
+            Thread.sleep(500);
+            System.out.print(" "+(char)9951);
+        }
+        System.out.println();
+        islemMenusu();
     }
 
     public static void getAraba(String marka, String model, String yakitTipi,String vites, Integer gunlukUcret){
@@ -58,125 +72,102 @@ public class MusteriVeArabaBilgisiGirisi extends AracTalebi {
             t.getYakitTipi().equalsIgnoreCase(yakitTipi)&& t.getVites().equalsIgnoreCase(vites)).
             forEach(System.out::println);
     }
-    public static void islemeDevamDongusu(){
-        System.out.println("Devam etmek istiyorsaniz 'e' ye, istemiyorsaniz 'h' ye basin");
-        String devam = scan.next();
-        if (devam=="e"){
-            musteriBilgisi();
-        }else if(devam=="h"){
-            arabalar();
-        }
-    }
 
 
-    public static void arabalar() {
 
-        AracTalebi opelDizelOtomatik = new AracTalebi("Opel", "Astra", "dizel", "otomatik", 150);
-        AracTalebi opelDizelManuel = new AracTalebi("Opel", "Astra", "dizel", "manuel", 130);
-        AracTalebi opelBenzinliOtomatik = new AracTalebi("Opel", "Astra", "benzin", "otomatik", 150);
-        AracTalebi opelBenzinliManuel = new AracTalebi("Opel", "Astra", "benzin", "manuel", 130);
-        AracTalebi toyotaDizelOtomatik = new AracTalebi("Toyota", "Astra", "dizel", "otomatik", 180);
-        AracTalebi toyotaDizelManuel = new AracTalebi("Toyota", "Astra", "dizel", "manuel", 160);
-        AracTalebi toyotaBenzinliOtomatik = new AracTalebi("Toyota", "Astra", "benzin", "otomatik", 200);
-        AracTalebi toyotaBenzinliManuel = new AracTalebi("Toyota", "Astra", "benzin", "manuel", 190);
-        AracTalebi vwDizelOtomatik = new AracTalebi("VW", "Astra", "dizel", "otomatik", 180);
-        AracTalebi vwDizelManuel = new AracTalebi("VW", "Astra", "dizel", "manuel", 160);
-        AracTalebi vwBenzinliOtomatik = new AracTalebi("VW", "Astra", "benzin", "otomatik", 200);
-        AracTalebi vwBenzinliManuel = new AracTalebi("VW", "Astra", "benzin", "manuel", 190);
+    public static void arabalar() throws InterruptedException {
 
-        aracTalebiList.add(opelDizelOtomatik);
-        aracTalebiList.add(opelDizelManuel);
-        aracTalebiList.add(opelBenzinliOtomatik);
-        aracTalebiList.add(opelBenzinliManuel);
-        aracTalebiList.add(toyotaDizelOtomatik);
-        aracTalebiList.add(toyotaDizelManuel);
-        aracTalebiList.add(toyotaBenzinliOtomatik);
-        aracTalebiList.add(toyotaBenzinliManuel);
-        aracTalebiList.add(vwDizelOtomatik);
-        aracTalebiList.add(vwDizelManuel);
-        aracTalebiList.add(vwBenzinliOtomatik);
-        aracTalebiList.add(vwBenzinliManuel);
+        AracTalebi arferrariTupluOtomatik = new AracTalebi("Alfa Romeo-Ferrari", "Ferrari 066/7", "tuplu", "otomatik", 1500);
+        AracTalebi atrbpTupluOtomatik = new AracTalebi("AlphaTauri-RBPT", "Red Bull RBPTH001", "tuplu", "otomatik", 1300);
+        AracTalebi renaultTupluOtomatik = new AracTalebi("Alpine-Renault", "Renault A522", "tuplu", "otomatik", 1500);
+        AracTalebi astonMartinMTupluOtomatik = new AracTalebi("Aston Martin Aramco-Mercedes", "Mercedes-AMG F1 M13", "tuplu", "otomatik", 1300);
+        AracTalebi ferrariTupluOtomatik = new AracTalebi("Ferrari", "Ferrari 066/7 ", "tuplu", "otomatik", 1800);
+        AracTalebi haasFerrariTupluOtomatik = new AracTalebi("Haas-Ferrari", "Ferrari 066/7", "tuplu", "otomatik", 1600);
+        AracTalebi mcLarenMercedesTupluOtomatik = new AracTalebi("McLaren-Mercedes", "Mercedes-AMG F1 M13 ", "tuplu", "otomatik", 2000);
+        AracTalebi mercedesTupluOtomatik = new AracTalebi("Mercedes", "Mercedes-AMG F1 M13", "tuplu", "otomatik", 1800);
+        AracTalebi oracleRBTupluOtomatik = new AracTalebi("Oracle Red Bull Racing-RBPT", "Red Bull RBPTH001", "tuplu", "otomatik", 2000);
+        AracTalebi williamsMercedesTupluOtomatik = new AracTalebi("Williams-Mercedes", "Mercedes-AMG F1 M13", "tuplu", "otomatik", 1900);
 
-        System.out.println("\n Lutfen talep ettiginiz aracin numarasini giriniz : \n1 : Opel Dizel Otomatik " +
-                "\n2 : Opel Dizel Manuel \n3 : Opel Benzinli Otomatik \n4 : Opel Benzinli Manuel" +
-                "\n5 : Toyota Dizel Otomatik" + "\n6 : Toyota Dizel Manuel\n7 : Toyota Benzinli Otomatik" +
-                "\n8 : Toyota Benzinli Manuel\n9 : vwDizelOtomatik\n10: vwDizelManuel\n11 : vwBenzinliOtomatik" +
-                "\n12 : vwBenzinliManuel" + "\n13: Yeni arac talebi");
+        aracTalebiList.add(arferrariTupluOtomatik);
+        aracTalebiList.add(atrbpTupluOtomatik);
+        aracTalebiList.add(renaultTupluOtomatik);
+        aracTalebiList.add(astonMartinMTupluOtomatik);
+        aracTalebiList.add(ferrariTupluOtomatik);
+        aracTalebiList.add(haasFerrariTupluOtomatik);
+        aracTalebiList.add(mcLarenMercedesTupluOtomatik);
+        aracTalebiList.add(mercedesTupluOtomatik);
+        aracTalebiList.add(oracleRBTupluOtomatik);
+        aracTalebiList.add(williamsMercedesTupluOtomatik);
+
+        System.out.println("\n Lutfen talep ettiginiz aracin numarasini giriniz : \n1 : Alfa Romeo-Ferrari " +
+                "\n2 : AlphaTauri-RBPT \n3 : Alpine-Renault \n4 : Aston Martin Aramco-Mercedes" +
+                "\n5 : Ferrari" + "\n6 : Haas-Ferrari\n7 : McLaren-Mercedes" +
+                "\n8 : Mercedes\n9 : Oracle Red Bull Racing-RBPT\n10: Williams-Mercedes" +
+                "\n11: Yeni arac talebi");
         int tercih = scan.nextInt();
         switch (tercih){
             case 1:
-                getAraba("Opel", "Astra", "dizel", "otomatik", 150);
-                int odenecek_Ucret1= toplamGun*150;
+                getAraba("Alfa Romeo-Ferrari", "Ferrari 066/7", "tuplu", "otomatik", 1500);
+                int odenecek_Ucret1= toplamGun*1500;
                 System.out.println("Odeyeceginiz toplam ucret: "+ odenecek_Ucret1);
-                islemeDevamDongusu();
+                islemMenusu();
                 break;
             case 2:
-                getAraba("Opel", "Astra", "dizel", "manuel", 130);
-                int odenecek_Ucret2= toplamGun*130;
+                getAraba("AlphaTauri-RBPT", "Red Bull RBPTH001", "tuplu", "otomatik", 1300);
+                int odenecek_Ucret2= toplamGun*1300;
                 System.out.println("Odeyeceginiz toplam ucret: "+ odenecek_Ucret2);
-                islemeDevamDongusu();
+                islemMenusu();
                 break;
             case 3:
-                getAraba("Opel", "Astra", "benzin", "otomatik", 150);
-                int odenecek_Ucret3= toplamGun*150;
+                getAraba("Alpine-Renault", "Renault A522", "tuplu", "otomatik", 1500);
+                int odenecek_Ucret3= toplamGun*1500;
                 System.out.println("Odeyeceginiz toplam ucret: "+ odenecek_Ucret3);
-                islemeDevamDongusu();
+                islemMenusu();
                 break;
             case 4:
-                getAraba("Opel", "Astra", "benzin", "manuel", 130);
-                int odenecek_Ucret4= toplamGun*130;
+                getAraba("Aston Martin Aramco-Mercedes", "Mercedes-AMG F1 M13", "tuplu", "otomatik", 1300);
+                int odenecek_Ucret4= toplamGun*1300;
                 System.out.println("Odeyeceginiz toplam ucret: "+ odenecek_Ucret4);
-                islemeDevamDongusu();
+                islemMenusu();
                 break;
             case 5:
-                getAraba("Toyota", "Astra", "dizel", "otomatik", 180);
-                int odenecek_Ucret5= toplamGun*180;
+                getAraba("Ferrari", "Ferrari 066/7 ", "tuplu", "otomatik", 1800);
+                int odenecek_Ucret5= toplamGun*1800;
                 System.out.println("Odeyeceginiz toplam ucret: "+ odenecek_Ucret5);
-                islemeDevamDongusu();
+                islemMenusu();
                 break;
             case 6:
-                getAraba("Toyota", "Astra", "dizel", "manuel", 160);
-                int odenecek_Ucret6= toplamGun*160;
+                getAraba("Haas-Ferrari", "Ferrari 066/7", "tuplu", "otomatik", 1600);
+                int odenecek_Ucret6= toplamGun*1600;
                 System.out.println("Odeyeceginiz toplam ucret: "+ odenecek_Ucret6);
-                islemeDevamDongusu();
+                islemMenusu();
                 break;
             case 7:
-                getAraba("Toyota", "Astra", "benzin", "otomatik", 200);
-                int odenecek_Ucret7= toplamGun*200;
+                getAraba("McLaren-Mercedes", "Mercedes-AMG F1 M13 ", "tuplu", "otomatik", 2000);
+                int odenecek_Ucret7= toplamGun*2000;
                 System.out.println("Odeyeceginiz toplam ucret: "+ odenecek_Ucret7);
-                islemeDevamDongusu();
+                islemMenusu();
                 break;
             case 8:
-                getAraba("Toyota", "Astra", "benzin", "manuel", 190);
-                int odenecek_Ucret8= toplamGun*190;
+                getAraba("Mercedes", "Mercedes-AMG F1 M13", "tuplu", "otomatik", 1800);
+                int odenecek_Ucret8= toplamGun*1800;
                 System.out.println("Odeyeceginiz toplam ucret: "+ odenecek_Ucret8);
-                islemeDevamDongusu();
+                islemMenusu();
                 break;
             case 9:
-                getAraba("VW", "Astra", "dizel", "otomatik", 180);
-                int odenecek_Ucret9= toplamGun*180;
+                getAraba("Oracle Red Bull Racing-RBPT", "Red Bull RBPTH001", "tuplu", "otomatik", 2000);
+                int odenecek_Ucret9= toplamGun*2000;
                 System.out.println("Odeyeceginiz toplam ucret: "+ odenecek_Ucret9);
-                islemeDevamDongusu();
+                islemMenusu();
                 break;
             case 10:
-                getAraba("VW", "Astra", "dizel", "manuel", 160);
-                int odenecek_Ucret10= toplamGun*160;
+                getAraba("Williams-Mercedes", "Mercedes-AMG F1 M13", "tuplu", "otomatik", 1900);
+                int odenecek_Ucret10= toplamGun*1900;
                 System.out.println("Odeyeceginiz toplam ucret: "+ odenecek_Ucret10);
-                islemeDevamDongusu();
+                islemMenusu();
                 break;
+
             case 11:
-                getAraba("VW", "Astra", "benzin", "otomatik", 200);
-                int odenecek_Ucret11= toplamGun*200;
-                System.out.println("Odeyeceginiz toplam ucret: "+ odenecek_Ucret11);
-                islemeDevamDongusu();
-                break;
-            case 12:
-                getAraba("VW", "Astra", "benzin", "manuel", 190);
-                int odenecek_Ucret12= toplamGun*190;
-                System.out.println("Odeyeceginiz toplam ucret: "+ odenecek_Ucret12);
-                islemeDevamDongusu();
-                break;
-            case 13:
                 System.out.println("Lutfen talep ettiginiz yeni arac markasini giriniz");
                 String yeniMarka = scan.nextLine();
                 scan.nextLine();
@@ -189,53 +180,165 @@ public class MusteriVeArabaBilgisiGirisi extends AracTalebi {
 
 
                 getAraba(yeniMarka," "+yeniModel," "+yeniYakitTipi," "+yeniVitesTipi,250);
-                int odenecek_Ucret13= toplamGun*250;
+                int odenecek_Ucret13= toplamGun*2500;
                 System.out.println("************************************");
                 System.out.println("Odeyeceginiz toplam ucret: "+ odenecek_Ucret13);
                 System.out.println("************************************");
-                islemeDevamDongusu();
+
+                islemMenusu();
                 break;
             default:
                 System.out.println("Lutfen gecerli bir arac talep numarasi giriniz");
+                arabalar();
         }
 
 
     }
-    public static void musteriBilgisi(){
+    public static void musteriBilgisi() throws InterruptedException {
         System.out.println("************************************");
-        System.out.println("Lutfen adinizi ve soyadinizi giriniz: ");
-        String adSoyad= scan.nextLine();
-        scan.next();
-        System.out.println("Lutfen id'nizi giriniz: ");
+        System.out.println("Lutfen adinizi giriniz");
+        String ad= scan.next();
+        System.out.println("Lutfen soyadinizi giriniz: ");
+        String Soyad=scan.next();
+        System.out.println("Lutfen tc'nizi giriniz: ");
         String id = scan.next();
-        scan.next();
+        //scan.next();
         System.out.println("Lutfen telefon numaranizi giriniz: ");
-        String tlf = scan.nextLine();
-        scan.next();
+        String tlf = scan.next();
+        //scan.next();
         System.out.println("Lutfen yasinizi giriniz: ");
         int yas = scan.nextInt();
 
         System.out.println("************************************");
 
-        System.out.println("Ad Soyad: "+adSoyad+"\nid: "+id+"\n Telefon: "+tlf+"\nYas: "+yas);
-        odemeBilgileri();
+        System.out.println("Ad Soyad: "+ad+" "+Soyad+"\ntc: "+id+"\nTelefon: "+tlf+"\nYas: "+yas);
 
         System.out.println("************************************");
+       // odemeBilgileri();
+        System.out.print(kirmizi+"Menuden cikis isleminiz gerceklestirilmektedir  "+(char)9951);
+        for (int i=0;i<6;i++){
+            Thread.sleep(500);
+            System.out.print(" "+(char)9951);
+        }
+        System.out.println();
+        islemMenusu();
     }
-    public static void odemeBilgileri(){
-        System.out.println("Lutfen kredi karti numaranizi giriniz: ");
-        String kKarti= scan.nextLine();
-        int uzunluk=12;
+    public static void odemeBilgileri() {
+        System.out.println("Lutfen kredi karti numaranizi 12 haneli olarak giriniz: ");
+        String kKarti = scan.next();
 
-       if (uzunluk==kKarti.length()){
-           System.out.println("Gecerli kart numarasi");
-       }else{
-           System.out.println("Gecersiz kart numarasi..Tekrar dneyiniz");
-           odemeBilgileri();
-           scan.next();
-       }
-        System.out.println("Odemeniz Basari ile Gerceklesmistir. Iyi gunler dileriz...");
+        if (kKarti.matches("[0-9]{12}")) {
+            System.out.println("Gecerli kart numarasi");
+            System.out.println("Odemeniz Basari ile Gerceklesmistir. Iyi gunler dileriz...");
+            playMusic(filePath);
+        } else {
+            System.out.println("Gecersiz kart numarasi..Tekrar deneyiniz");
+            odemeBilgileri();
+        }
+System.exit(0);
     }
+    public static void cikis() throws InterruptedException {
+        System.out.print(kirmizi+"Cikis isleminiz gerceklestirilmektedir  "+(char)9760);
+        for (int i=0;i<6;i++){
+            Thread.sleep(600);
+            System.out.print(" "+(char)9760);
+        }System.exit(0);}
+
+    public static void islemMenusu() throws InterruptedException {
+            boolean secim = true;
+            do {
+                System.out.println(fullKoyuSiyahSatirCizgi+mor+"Yapmak istediginiz islem icin bir secenek seciniz\n"+
+                        mavi+ "Arac Talep icin 1\n"+
+                        yesil+"Arabalari listelemek icin 2\n"+
+                        sari+ "Musteri Bilgisi icin 3\n"+
+                        mor + "Odeme Bilgisi icin 4\n"+
+                        kirmizi+"Cikis yapmak icin 5");
+                String secenek= scan.next();
+
+                switch (secenek){
+                    case "1" :
+                        aracTalep();
+                        secim=false;
+                        break;
+                    case "2" :
+                        arabalar();
+                        secim=false;
+                        break;
+
+                    case "3" :
+                        musteriBilgisi();
+                        secim=false;
+                        break;
+                    case "4" :
+                        odemeBilgileri();
+                        secim=false;
+                        break;
+
+                    case "5":
+                        playMusic(filePath);
+                        //cikis();
+                       // secim=false;
+                        break;
+                    default:
+                        System.out.println(kirmizi+"Yanlis bir secenek girdiniz , Lutfen tekrar giris yapiniz");
+
+                        islemMenusu();
+                }
+            }while (secim);
+        }
+    Clip clip;
+
+    String status;
+
+    AudioInputStream audioInputStream;
+    static String filePath  ;
+
+    public MusteriVeArabaBilgisiGirisi()
+            throws UnsupportedAudioFileException,
+            IOException, LineUnavailableException
+    {
+        audioInputStream =
+                AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+        clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    }
+    public static void playMusic(String filePath1){
+        try
+        {
+            filePath = "P10_aracKiralama/TechproMentorCanBey.wav";
+            MusteriVeArabaBilgisiGirisi audioPlayer =
+                    new MusteriVeArabaBilgisiGirisi();
+
+            audioPlayer.play();
+boolean secim=true;
+            while (secim)
+            {
+                cikis();
+                secim=false;
+            }
+
+        }
+
+        catch (Exception ex)
+        {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+
+        }
+    }
+
+
+
+
+
+    public void play()
+    {
+        clip.start();
+        status = "play";
+    }
+
+
 
 
 }

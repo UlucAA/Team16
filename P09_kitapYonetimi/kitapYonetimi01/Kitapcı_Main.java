@@ -67,7 +67,7 @@ public class Kitapcı_Main {
 
 	private static void menu() {
 
-		System.out.println("//////////////// KİTAPCI PRIGRAMI //////////////////");
+		System.out.println("//////////////// KİTAPCI PROGRAMI //////////////////");
 		System.out.println(
 				" 	1-kitap ekle\n" + 
 				"	2-numara ile kitap goruntule\n" + 
