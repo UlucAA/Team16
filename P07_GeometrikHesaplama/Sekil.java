@@ -5,19 +5,22 @@ public class Sekil {
     double uzunKenar;
     double kisaKenar;
     double yariCap;
+    double Kenar;
+
 
     public Sekil(double uzunKenar, double kisaKenar) {
         this.uzunKenar = uzunKenar;
         this.kisaKenar = kisaKenar;
     }
 
-    public Sekil(double yariCap) {
-        this.yariCap = yariCap;
+    public Sekil(double a) {
+      this.yariCap = a;
+      this.Kenar = a;
     }
 
     public double cevreHesaplama() {
-       return (uzunKenar + kisaKenar) * 2;
-   }
+        return (uzunKenar + kisaKenar) * 2;
+    }
 
     public double alanHesaplama() {
         return uzunKenar * kisaKenar;
@@ -25,5 +28,13 @@ public class Sekil {
 
     public double alanHesaplamaCember() {
         return yariCap * yariCap * 3.14;
+    }
+    public double KareCevreHesaplama(){
+
+        return 4*Kenar;
+    }
+    public double KareAlanHesaplama(){
+
+        return Kenar*Kenar;
     }
 }

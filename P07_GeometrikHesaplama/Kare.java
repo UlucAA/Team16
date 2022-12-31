@@ -1,31 +1,25 @@
 package JavaProjects.P07_GeometrikHesaplama;
 
-public class Kare extends Dikdortgen {
+public class Kare extends Sekil {
 
 
-     public Kare(double uzunKenar,double kisaKenar) {
-		super(uzunKenar,kisaKenar);
-		
-	}
+    public Kare(double Kenar) {
+        super(Kenar);
+    }
 
-	@Override
-	public String toString() {
-		return "Kenar = " + uzunKenar + ", \n kare cevre = " + cevreHesaplama()
-				+ ", \n kare alan = " + alanHesaplama();
-	}
+    public double KareCevreHesaplama() {
+        return super.KareCevreHesaplama();
+    }
+
+    public double KareAlanHesaplama(){
+        return super.KareAlanHesaplama();
+    }
+
+//    @Override
+//    public String toString() {
+//        return "Kenar = " + uzunKenar + ", \n kare cevre = " + cevreHesaplama()
+//                + ", \n kare alan = " + alanHesaplama();
+    }
 
 
-	
-
-
-	
-
-
-	
-	
-	
-	
-	
-	
-	
-}
+//}
