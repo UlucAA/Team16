@@ -6,7 +6,7 @@ public class FilmTahmin {
 
 
     /*
-     TASK :
+     TASK : hello
       yukarıdaki film listinde bulunan filmlerden herhangi birisini kullanıcının film ismini  görmeden
       filmin index nosuna göre sectiriniz
       seçilen filmin  ismini filmin harf saysının 2 katı kadar hak tanıyarak tahmin etmesini
