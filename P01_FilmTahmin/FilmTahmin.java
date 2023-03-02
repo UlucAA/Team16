@@ -4,9 +4,9 @@ import java.util.*;
 
 public class FilmTahmin {
 
-    static List<String> filmler = new ArrayList<>(Arrays.asList("JOKER", "INCEPTION", "PIYANIST", "GREENMILE", "LEON", "GODFATHER", "JURASSICPARK", "TITANIC"));
+
     /*
-     TASK :
+     TASK : hello
       yukarıdaki film listinde bulunan filmlerden herhangi birisini kullanıcının film ismini  görmeden
       filmin index nosuna göre sectiriniz
       seçilen filmin  ismini filmin harf saysının 2 katı kadar hak tanıyarak tahmin etmesini
@@ -19,66 +19,93 @@ public class FilmTahmin {
       kullanıcının kaybedip veya kazandığını ve tahmin etmesi gereken filmin ismini  console yazdırınız.
 
      */
-    static Scanner scan = new Scanner(System.in);
+    //terminalde ciktinin istenen duzende olmasi adina;
+    public static final String sadeceSiyah = "\u001B[30m";
+    public static final String kalin= "\u001B[1m";
+    public static final String egimli= "\u001B[3m";
+    public static final String griSatirCizgi= "\u001B[47m";
 
     public static void main(String[] args) {
+        System.out.println(sadeceSiyah + kalin + egimli + griSatirCizgi +
+                "I=I=I==I===I=====I WELCOME TO THE MOVIE PREDICTION GAME! I=====I===I==I=I=I");
+        System.out.println("1 ile " + movies.size() + " arasinda bir rakam ya da sayi giriniz.");
+        int selectToIndex;
 
-        //  Scanner scan = new Scanner(System.in);
+        while (true) {
+            try {
+                selectToIndex = input.nextInt();
+                if (selectToIndex < 0 || selectToIndex > movies.size())
+                    throw new ArithmeticException();
+                else
+                    break;
+            } catch (ArithmeticException e) {
+                System.out.println("1 ile " + movies.size() + " arasında bir deger girmelisiniz!");
+            } catch (InputMismatchException e) {
+                String str = input.nextLine();
+                System.out.println("Uyumsuz eslesme, lutfen tekrar deneyiniz!");
 
-        System.out.println("~~~FILM TAHMIN OYUNUNA HOSGELDINIZ~~~");
+            }
 
-        System.out.print("1-" + (filmler.size()) + " arasinda bir sayi giriniz : ");
-        int secilenFilmIndex = scan.nextInt();
-        filmGetir(filmler, secilenFilmIndex - 1);
-
+        }
+        getMovie(movies,selectToIndex-1);
 
     }
 
-    private static void filmGetir(List<String> film, int index) {
-        //   Scanner scan = new Scanner(System.in);
-        StringBuilder tahminEdilecekFilm = new StringBuilder(FilmTahmin.filmler.get(index).replaceAll("\\w", "-"));//tum harf karakterleri - ile değiştir
-        System.out.println(tahminEdilecekFilm);
-        System.out.println(film.get(index).length() + " harfli yabanci film seçtiniz. Filmi tahmin etmek için " + 2 * film.get(index).length() + " hakkınız var .");
+    //==>> Bir film list'i olusturunuz.
+    public static List<String> movies = new ArrayList<>
+            (Arrays.asList("INCEPTION", "OLDBOY", "INTERSTELLAR", "PRESTIGE", "NOSTALGIA", "OBLIVION", "STALKER", "SPARTACUS", "AMOUR", "SOLARIS"));
+    //ps: class'in icinde her yerden ulasabilmek adina "static" keyword. List tercihi ise sirali cagirma olmadigindan.
+    //==>> yukaridaki film listinde bulunan filmlerden herhangi birisini kullanicinin film ismini  gormeden filmin index nosuna göre sectiriniz
+    public static Scanner input = new Scanner(System.in);
+    //==>> seçilen filmin  ismini filmin harf saysının 2 katı kadar hak tanıyarak tahmin etmesini saglayan method create ediniz...
+    private static void getMovie(List<String> movie, int index) {
+        StringBuilder tahminFilm = new StringBuilder(FilmTahmin.movies.get(index).replaceAll("\\w","-"));
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // ps1: Burada StringBuilder tercih edilmesinin nedeni constructor'in icine parametreleri yazabilme istencidir.//
+        // ps2: Movie_Prediction class'inda olusturulan movies objemiz cagirildi.                                      //
+        // ps3: Kullanici filmi alenen goremesin diye de harflerin tamami replaceAll() method'u ile "_" cevrildi.      //
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //==>>   kullanıcının sectiği filmin harf sayısını  console yazdırınız.
+        System.out.println(sadeceSiyah + kalin + egimli + tahminFilm);
+        //==>>  kullanıcının sectiği film için tahmin hakkını  console yazdırınız.
+        System.out.println(sadeceSiyah + kalin + egimli + griSatirCizgi +
+                movie.get(index).length() + " harften olusan yabanci filmi sectiniz. Sectiginiz bu filmi tahmin etmek icin; " +
+                2*movie.get(index).length() + " hakkiniz vardir!");
 
-        char harf = ' ';
-        int tahminSayısı = 0;
-        int dogruTahminSayısı = 0;
-        String str = "";
-
-        do {
-
-            System.out.print("yanlıs tahmin sayisi: " + (tahminSayısı - dogruTahminSayısı) + "/" + 2 * film.get(index).length() + "\ntahmin ettiginiz harfi giriniz : ");//yanlıs girilen tahmin sayisini print edildi
-            harf = scan.next().toUpperCase().charAt(0);//film için tahmin edilen harf alındı
-            str += harf;//harf str'ye atandı
-          if (!tahminEdilecekFilm.toString().contains(str)) {//tahminEdilecekFilm'de kullanıcıdan alınan harf yoksa tahmin sayısı artılıdı
-              tahminSayısı++;
-          } //else {//tahminEdilecekFilm'de kullanıcıdan alınan harf varsa tekrar uyarısı verildi
-          //     System.out.println(str + " harf zaten acıldı");
-          // }
-            for (int i = 0; i < tahminEdilecekFilm.length(); i++) {
-                if (film.get(index).charAt(i) == harf) {//tahmin listeki edilen harf filmde varsa
-                    if (!tahminEdilecekFilm.toString().contains(film.get(index).substring(i, i + 1))) {
-                        //tahmin edien harf listteki filmde var ama tahminedilecek (---)filmde yoksa doğru tahmin ettin
-                        dogruTahminSayısı++;
-                    }
-                    tahminEdilecekFilm.setCharAt(i, harf);//dogru tahmin edilen harf tahmineilcekfilme indexe göre atandı
-
-                }
-
+        //do-whle loop kullanilacak olma sebebi; bir adet durum sozkonusu olmasi.
+        char letter = ' '; //harf girdisi olacagindan
+        int yanlisTahminSayisi = 0; //yanlis harf girildiginde sayisini elde edebilmek icin
+        int dogruTahminSayisi = 0;
+        StringBuilder str = new StringBuilder();
+        do{
+            //==>>    kullanıcının her tahmininde kalan hak sayısını console yazdırınız
+            //==>>   kullanıcının her tahmininde doğru ve yanlış tahmin  sayısını console yazdırınız.
+            System.out.println("Yanlis girilen tahmin sayisi/rakami: " + (yanlisTahminSayisi - dogruTahminSayisi) +
+                    "/" + 2*movie.get(index).length() + "\nIcinize dogan harfi giriniz lutfen: ");
+            letter = input.next().toUpperCase().charAt(0); //tahmin edilen harfin alimi
+            str.append(letter);//kullanicidan alinan harfin str'e assign edilmesi
+            if(!tahminFilm.toString().contains(str)){
+                yanlisTahminSayisi++;//index ile tercih edilen filmde girilen harfin olmamasi durumu icin
             }
-            if (tahminEdilecekFilm.toString().equalsIgnoreCase(film.get(index))) {
-                System.out.println("tebrikler kazndınız");
-                System.out.println("tahmin ettiğiniz film : " + tahminEdilecekFilm);
+            for(int i = 0; i<tahminFilm.length(); i++){
+                if(movie.get(index).charAt(i)==letter){
+                    if(!tahminFilm.toString().contains(movie.get(index).substring(i,i+1))){
+                        dogruTahminSayisi++;
+                    }
+                    tahminFilm.setCharAt(i,letter);//tahmin dogru ise; tahmin edilecek filmin indexine bu harfi yerlestir.
+                }
+            }
+            if(tahminFilm.toString().equalsIgnoreCase(movie.get(index))){
+                System.out.println("CONGRATULATIONS!" + "\n" + "Result: " + tahminFilm);
                 break;
             }
-            System.out.println(tahminEdilecekFilm);
-
-        } while ((tahminSayısı - dogruTahminSayısı) != 2 * film.get(index).length());//yanlış sayısı verilen hakka ulaşana kadar do body calışır
-
-        if ((tahminSayısı - dogruTahminSayısı) == 2 * film.get(index).length()) {
-            System.out.println("yanlıs tahmin sayısı : " + (tahminSayısı - dogruTahminSayısı));
-            System.out.println("agam game over yine bekleriz....tahmin edemedigin film : " + film.get(index));
+            System.out.println(tahminFilm);
+        }while((yanlisTahminSayisi - dogruTahminSayisi) != 2*movie.get(index).length());
+        if ((yanlisTahminSayisi - dogruTahminSayisi) == 2 * movie.get(index).length()) {
+            System.out.println("yanlis tahmin sayisi :" + (yanlisTahminSayisi - dogruTahminSayisi));
+            System.out.println("agam game over  yine bekleriz ... tahmin edemedigin film :" + movie.get(index));
         }
     }
+
 }
 

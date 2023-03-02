@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class KahveMakinesi {
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
 
 
 
