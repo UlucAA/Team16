@@ -11,7 +11,7 @@ public class JavaAirlines {
 
 
 
-/*
+
         Scanner input = new Scanner(System.in);
         System.out.print("javaAirlines'a hos geldiniz..\n ANKARA, IZMIR, VAN rotasından birini seciniz : ");
         String sehir = input.next().toUpperCase();
@@ -21,7 +21,7 @@ public class JavaAirlines {
         input.nextLine();//onemli
         String adSoyad=input.nextLine();
         System.out.println("yasinizi giriniz");
-        int yas=input.nextInt();*/
+        int yas=input.nextInt();
         Yolcu yolcu1=new Yolcu();
         ucus(yolcu1.getAdSoyad(), yolcu1.getSehir(), yolcu1.getUcusTipi(),yolcu1.getYolcuYas());
         //1..bilet hazirlama yolu==>Scanner yorumda yukarisi calisinca pojo classa bilgilere gore bilet hazirlanir.
